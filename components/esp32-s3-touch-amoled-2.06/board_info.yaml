@@ -1,0 +1,12 @@
+board: ESP32-S3-Touch-AMOLED-2.06
+chip: esp32s3
+version: 1.0.0
+description: >-
+  The ESP32-S3-Touch-AMOLED-2.06 is a high-performance, wearable watch-style
+  development board designed by Waveshare. Based on the ESP32-S3R8
+  microcontroller, it integrates a 2.06inch capacitive touch AMOLED display, a
+  6-axis IMU, an RTC, an audio codec, power management, and a TF card slot. It
+  comes with a custom case and a detachable strap, making it ideal for wearable
+  device prototyping, functional verification, and interactive application
+  development.
+manufacturer: Waveshare

@@ -1,0 +1,194 @@
+# Devices Configuration
+devices:
+  - name: audio_codec_0
+    chip: es8311
+    type: audio_codec
+    init_skip: false
+    config:
+      dac_enabled: true
+      sys_cfg:
+        is_master: false
+        no_mclk: true
+      dac_cfg:
+        ref_enable: false
+        ref_dac_ch: 0
+        real_adc_data_ch: 0
+    peripherals:
+      - pa_name: gpio_0
+        gain: 10
+        active_level: 1
+      - i2c_name: i2c_0
+        address: 0x30
+        frequency: 100000
+      - i2s_name: i2s_0
+        clk_src: 0
+        tx_aux_out_io: -1
+        tx_aux_out_line: 0
+        tx_aux_out_invert: false
+
+  - name: audio_codec_1
+    chip: es7210
+    type: audio_codec
+    init_skip: false
+    config:
+      adc_enabled: true
+      sys_cfg:
+        is_master: false
+        no_mclk: true
+      adc_cfg:
+        digital_mic: false
+        label: []
+      dac_cfg:
+        ref_enable: false
+        ref_dac_ch: 0
+        real_adc_data_ch: 0
+    peripherals:
+      - i2c_name: i2c_0
+        address: 0x30
+        frequency: 100000
+      - i2s_name: i2s_0
+
+  - name: display_lcd_0
+    chip: CO5300
+    type: display_lcd
+    sub_type: spi
+    init_skip: false
+    dependencies:
+      waveshare/esp_lcd_sh8601: '*'
+    config:
+      invert_color: false
+      need_reset: true
+      swap_xy: false
+      mirror_x: false
+      mirror_y: false
+      x_max: 410
+      y_max: 502
+      io_spi_config:
+        cs_gpio_num: 12
+        dc_gpio_num: -1
+        spi_mode: 0
+        pclk_hz: 40000000
+        trans_queue_depth: 2
+        lcd_cmd_bits: 8
+        lcd_param_bits: 8
+        cs_ena_pretrans: 0
+        cs_ena_posttrans: 0
+        flags:
+          dc_high_on_cmd: false
+          dc_low_on_data: false
+          dc_low_on_param: false
+          octal_mode: false
+          quad_mode: false
+          sio_mode: false
+          lsb_first: false
+          cs_high_active: false
+      lcd_panel_config:
+        reset_gpio_num: 8
+        rgb_ele_order: LCD_RGB_ELEMENT_ORDER_RGB
+        data_endian: LCD_RGB_DATA_ENDIAN_BIG
+        bits_per_pixel: 16
+        flags:
+          reset_active_high: false
+    peripherals:
+      - spi_name: spi_0
+
+  - name: button_0
+    type: button
+    sub_type: gpio
+    init_skip: false
+    config:
+      long_press_time: 2000
+      short_press_time: 100
+      active_level: 0
+      enable_power_save: false
+      disable_pull: false
+      events_cfg:
+        press_down: true
+        press_up: true
+        single_click: true
+        double_click: true
+        multi_click: false
+        long_press_start: true
+        long_press_hold: false
+        long_press_up: true
+        press_repeat: false
+        press_repeat_done: false
+        press_end: false
+        click_counts: []
+        long_press_start_time: []
+        long_press_up_time: []
+    peripherals:
+      - gpio_name: gpio_1
+
+  - name: button_1
+    type: button
+    sub_type: gpio
+    init_skip: false
+    config:
+      long_press_time: 2000
+      short_press_time: 100
+      active_level: 0
+      enable_power_save: false
+      disable_pull: false
+      events_cfg:
+        press_down: true
+        press_up: true
+        single_click: true
+        double_click: true
+        multi_click: false
+        long_press_start: true
+        long_press_hold: false
+        long_press_up: true
+        press_repeat: false
+        press_repeat_done: false
+        press_end: false
+    peripherals:
+      - gpio_name: gpio_2
+
+  - name: lcd_touch_0
+    chip: FT3168
+    type: lcd_touch
+    sub_type: i2c
+    init_skip: false
+    dependencies:
+      espressif/esp_lcd_touch_ft5x06: '*'
+    config:
+      io_i2c_config:
+        control_phase_bytes: 1
+        dc_bit_offset: 0
+        lcd_cmd_bits: 8
+        lcd_param_bits: 0
+        scl_speed_hz: 100000
+        flags:
+          dc_low_on_data: false
+          disable_control_phase: true
+      touch_config:
+        x_max: 410
+        y_max: 502
+        rst_gpio_num: 9
+        int_gpio_num: 38
+        levels:
+          reset: 0
+          interrupt: 0
+        flags:
+          swap_xy: false
+          mirror_x: false
+          mirror_y: false
+    peripherals:
+      - i2c_name: i2c_0
+        i2c_addr: [0xba]
+
+  - name: fs_fat_0
+    type: fs_fat
+    sub_type: spi
+    init_skip: false
+    config:
+      mount_point: /sdcard
+      vfs_config:
+        format_if_mount_failed: false
+        max_files: 5
+        allocation_unit_size: 16384
+      sub_config:
+        cs_gpio_num: 17
+    peripherals:
+      - spi_name: spi_1
